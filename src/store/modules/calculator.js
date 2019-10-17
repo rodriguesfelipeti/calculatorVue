@@ -1,0 +1,96 @@
+export default {
+  namespaced: true,
+  state: {
+    result: 0,
+    firstVal: false,
+    secondVal: false,
+    displayVal: 0,
+    operations: false,
+    easterEgg: false
+  },
+  getters: {
+    displayVal(state) {
+      return state.displayVal;
+    },
+    easterEgg(state) {
+      return state.easterEgg;
+    }
+  },
+  mutations: {
+    adicionarValor(state, number) {
+      if (number === "C") {
+        state.displayVal = 0;
+        state.firstVal = false;
+        state.secondVal = false;
+        state.operations = false;
+        state.easterEgg = false;
+      } else {
+        if (state.firstVal && state.operations) {
+          if (!state.secondVal) {
+            state.secondVal = number;
+            state.displayVal = number;
+          } else {
+            state.secondVal += number;
+            state.displayVal = state.secondVal;
+          }
+        } else {
+          if (!state.firstVal) {
+            state.firstVal = number;
+            state.displayVal = number;
+          } else {
+            state.firstVal += number;
+            state.displayVal = state.firstVal;
+          }
+        }
+      }
+    },
+    adicionarOperacao(state, number) {
+      if (number === "=" && state.secondVal) {
+        switch (state.operations) {
+          case "+":
+            state.result =
+              parseFloat(state.firstVal) + parseFloat(state.secondVal);
+            break;
+          case "-":
+            state.result =
+              parseFloat(state.firstVal) - parseFloat(state.secondVal);
+            break;
+          case "x":
+            state.result =
+              parseFloat(state.firstVal) * parseFloat(state.secondVal);
+            break;
+          case "/":
+            state.result =
+              parseFloat(state.firstVal) / parseFloat(state.secondVal);
+            break;
+          default:
+            break;
+        }
+
+        if (state.result === 1000) {
+          state.easterEgg = true;
+        }
+
+        state.displayVal = state.result;
+        state.firstVal = state.result;
+        state.secondVal = false;
+        state.operations = false;
+      }
+
+      state.operations = number;
+    }
+  },
+  actions: {
+    adicionarValor(context, number) {
+      context.commit("adicionarValor", number);
+    },
+    adicionarOperacao(context, number) {
+      context.commit("adicionarOperacao", number);
+    }
+    // adicionarProduto(context, payload) {
+    //     setTimeout(() => {
+    //         context.commit('adicionarProduto', payload)
+    //     }, 1000);
+    // }
+  }
+};
