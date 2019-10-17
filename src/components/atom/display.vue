@@ -1,6 +1,6 @@
 <template lang="html">
   <section class="display">
-    <div class="display-visor">
+    <div :class="onOff ? 'display-visor' : 'display-visor off'">
       <div class="content">
         {{ displayVal }}
       </div>
@@ -22,7 +22,8 @@ import { mapGetters } from 'vuex'
     },
     computed: {
       ...mapGetters('calculator', {
-            displayVal: 'displayVal'
+            displayVal: 'displayVal',
+            onOff: 'onOff'
         }),
     }
 }
@@ -45,6 +46,9 @@ import { mapGetters } from 'vuex'
       margin-right: 5px;
       position: relative;
       top: 10px;
+    }
+    &.off{
+      opacity: 0.3;
     }
   }
 }

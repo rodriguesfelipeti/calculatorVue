@@ -1,11 +1,12 @@
 <template lang="html">
   <section class="app-button">
-    <button :class="classe" @click="setDisplay(number)">{{ number }}</button>
+    <button :class="classe" @click=" onOff ? setDisplay(number) : ''">{{ number }}</button>
   </section>
 </template>
 
 <script lang="js">
 
+import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
   export default  {
@@ -30,7 +31,9 @@ import { mapActions } from 'vuex'
       }
     },
     computed: {
-
+      ...mapGetters('calculator', {
+              onOff: 'onOff'
+            }), 
     }
 }
 </script>
@@ -38,7 +41,7 @@ import { mapActions } from 'vuex'
 <style scoped lang="scss">
 .app-button {
   .btn-number-zero {
-    background-color: lightgray;
+    background-color: lightblue;
     width: 150px;
     height: 73px;
     border: solid black 1px;

@@ -1,6 +1,6 @@
 <template lang="html">
   <section class="calc-organism">
-    <calculator />
+    <calculator/>
     <img
       class="img1"
       v-show="easterEgg"
@@ -38,7 +38,6 @@ import { mapGetters } from 'vuex'
       }
     },
     methods: {
-
     },
     computed: {
       ...mapGetters('calculator', {

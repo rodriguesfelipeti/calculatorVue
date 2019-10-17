@@ -6,7 +6,8 @@ export default {
     secondVal: false,
     displayVal: 0,
     operations: false,
-    easterEgg: false
+    easterEgg: false,
+    onOff: false
   },
   getters: {
     displayVal(state) {
@@ -14,6 +15,9 @@ export default {
     },
     easterEgg(state) {
       return state.easterEgg;
+    },
+    onOff(state) {
+      return state.onOff;
     }
   },
   mutations: {
@@ -78,6 +82,19 @@ export default {
       }
 
       state.operations = number;
+    },
+
+    turnOnOffCalc(state, value){
+      if(value){
+        state.onOff = false
+        state.displayVal = 0;
+        state.firstVal = false;
+        state.secondVal = false;
+        state.operations = false;
+        state.easterEgg = false;
+      }else{
+        state.onOff = true
+      }
     }
   },
   actions: {
@@ -86,11 +103,9 @@ export default {
     },
     adicionarOperacao(context, number) {
       context.commit("adicionarOperacao", number);
+    },
+    turnOnOffCalc(context, value) {
+      context.commit("turnOnOffCalc", value)
     }
-    // adicionarProduto(context, payload) {
-    //     setTimeout(() => {
-    //         context.commit('adicionarProduto', payload)
-    //     }, 1000);
-    // }
   }
 };
